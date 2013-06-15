@@ -29,7 +29,8 @@ def infsieve():
     sieve.
     """
     primes = [1,2]
-    prime_len = len(primes)
+    prime_len = len(primes) # when running python -m profile for problem 3, this
+                            # actually added a second when included in the loop
     cidx = 0
     newmax = None
     while True:
@@ -44,7 +45,8 @@ def infsieve():
             sieve = range(offset, newmax)
             sieve[0] = 0 # we know this is already prime, so make it so it
                          # doesn't get duplicated in the list
-            for x in primes[1:]:
+            for x in primes[1:]: # surprisingly, this slice is better than
+                                 # indexing by a 30-40 ms
                 toffset = offset - offset % x + x # figure out the next multiple
                                                   # after the offset
                 for j in xrange(toffset, newmax, x):
