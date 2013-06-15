@@ -8,24 +8,14 @@
 #
 
 from math import sqrt
+import itertools
 
-def getprimes(n):
-    nroot = int(sqrt(n))
-    sieve = range(n+1)
-    sieve[1] = 0
-
-    for i in xrange(2, nroot+1):
-        if sieve[i] != 0:
-            m = n/i - i
-            sieve[i*i: n+1:i] = [0] * (m+1)
-    return [x for x in sieve if x !=0]
-
+from primes import infsieve
 
 #n=13195
 n=600851475143
 
-primes = getprimes(int(sqrt(n)))
-
-prime_factors=[p for p in primes if n % p == 0]
-
-print prime_factors
+max_n = int(sqrt(n))
+print max(itertools.ifilter(lambda x: n % x == 0,
+                            itertools.takewhile(lambda x: x <= max_n,
+                                                infsieve())))
